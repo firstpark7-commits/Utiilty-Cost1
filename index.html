@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <title>공장 유틸리티 비용 계산기</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 30px;
+      background: #f7f7f7;
+    }
+    h1 {
+      margin-bottom: 20px;
+    }
+    table {
+      border-collapse: collapse;
+      width: 100%;
+      background: #fff;
+    }
+    th, td {
+      border: 1px solid #ccc;
+      padding: 10px;
+      text-align: center;
+    }
+    th {
+      background: #eee;
+    }
+    input {
+      width: 90%;
+      padding: 5px;
+      box-sizing: border-box;
+    }
+    .total {
+      font-weight: bold;
+      background: #fafafa;
+    }
+  </style>
+</head>
+<body>
+
+<h1>공장 유틸리티 비용 계산</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>유틸리티</th>
+      <th>사용량</th>
+      <th>단가 (원)</th>
+      <th>총 비용 (원)</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>전기 (kWh)</td>
+      <td><input type="number" value="0" oninput="calculate()"></td>
+      <td><input type="number" value="0" oninput="calculate()"></td>
+      <td class="cost">0</td>
+    </tr>
+    <tr>
+      <td>스팀 (ton)</td>
+      <td><input type="number" value="0" oninput="calculate()"></td>
+      <td><input type="number" value="0" oninput="calculate()"></td>
+      <td class="cost">0</td>
+    </tr>
+    <tr>
+      <td>가스 (Nm³)</td>
+      <td><input type="number" value="0" oninput="calculate()"></td>
+      <td><input type="number" value="0" oninput="calculate()"></td>
+      <td class="cost">0</td>
+    </tr>
+    <tr>
+      <td>용수 (㎥)</td>
+      <td><input type="number" value="0" oninput="calculate()"></td>
+      <td><input type="number" value="0" oninput="calculate()"></td>
+      <td class="cost">0</td>
+    </tr>
+  </tbody>
+  <tfoot>
+    <tr class="total">
+      <td colspan="3">총 합계</td>
+      <td id="grandTotal">0</td>
+    </tr>
+  </tfoot>
+</table>
+
+<script>
+function calculate() {
+  let total = 0;
+  const rows = document.querySelectorAll("tbody tr");
+
+  rows.forEach(row => {
+    const inputs = row.querySelectorAll("input");
+    const usage = parseFloat(inputs[0].value) || 0;
+    const price = parseFloat(inputs[1].value) || 0;
+    const cost = usage * price;
+
+    row.querySelector(".cost").textContent = cost.toLocaleString();
+    total += cost;
+  });
+
+  document.getElementById("grandTotal").textContent = total.toLocaleString();
+}
+</script>
+
+</body>
+</html>
